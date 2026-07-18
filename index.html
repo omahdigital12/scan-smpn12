@@ -168,35 +168,50 @@
       });
     }
 
+    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxfjWMotyDF2CTFKOxGqdPCWXL8pfsUnaP4HAjImYOPkZNdUuuiQOUx7VLlW0V4I2dC/exec";
+
     function kirimPresensi(nisn) {
-      //document.getElementById("status").className = "status-kecil";
+    
       document.getElementById("status").innerText = "Mencatat...";
-
-      google.script.run.withSuccessHandler(function(res) {
-        const hasil = JSON.parse(res);
-
+    
+      fetch(WEBAPP_URL, {
+        method: "POST",
+        body: new URLSearchParams({
+          nisn: nisn
+        })
+      })
+      .then(response => response.json())
+      .then(hasil => {
+    
         if (hasil.status === "sukses") {
+    
           document.getElementById("audio-success").play();
-          document.getElementById("status").className = "";
+    
           document.getElementById("status").innerHTML = `
             <div class="status-besar">Presensi Berhasil ✅</div>
             <div class="status-nama">Nama: <strong>${hasil.nama}</strong></div>
             <div class="status-nama">Kelas: <strong>${hasil.kelas}</strong></div>
           `;
-
-          setTimeout(() => {
-            startCamera();
-          }, 1000);
-
+    
         } else {
+    
           document.getElementById("audio-fail").play();
+    
           document.getElementById("status").innerHTML =
-            "❌ <strong>NISN tidak ditemukan!</strong>";
-          setTimeout(() => {
-            startCamera();
-          }, 1000);
+          "❌ <strong>NISN tidak ditemukan!</strong>";
+    
         }
-      }).kirimPresensi(nisn);
+    
+        setTimeout(startCamera,1000);
+    
+      })
+      .catch(err=>{
+          console.log(err);
+          document.getElementById("status").innerHTML =
+          "❌ Gagal mengirim data.";
+          setTimeout(startCamera,1000);
+      });
+    
     }
 
     document.getElementById("switch-btn").onclick = function () {
