@@ -1,7 +1,7 @@
 {
   "name": "SMP Negeri 12 Pekalongan",
   "short_name": "Scan Presensi",
-  "start_url": "https://script.google.com/macros/s/AKfycbz-NJsXyAgSo6w_zNnmloTcNAgHU0osDPnNXfYyIdN1TWIbeRXvzx05lBBaiSK77V8q/exec",
+  "start_url": "https://script.google.com/macros/s/AKfycbypv0j3ahkjsnPERqCaeb97XGUGsS0dZDQeAWC_qE7fYJgoZvAtIOc5X18HlxPlizku/exec",
   "display": "standalone",
   "background_color": "#f5f5f5",
   "theme_color": "#1976d2",
